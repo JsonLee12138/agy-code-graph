@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  verify-and-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Sync and verify upstream skills from tirth8205/code-review-graph
+        run: |
+          bash scripts/sync-upstream-skills.sh
+          bash scripts/sync-upstream-skills.sh --check-local
+
+      - name: Validate shell script syntax
+        run: |
+          sh -n scripts/crg-hook.sh
+          bash -n scripts/sync-upstream-skills.sh
+          bash -n scripts/install-crg.sh
+          bash -n skills/crg-install/scripts/install-crg.sh
+          bash -n scripts/init-crg.sh
+          bash -n skills/crg-init/scripts/init-crg.sh
+          bash -n tests/run-tests.sh
+          bash -n scripts/gate-check.sh
+
+      - name: Validate JSON manifests
+        run: |
+          python3 -m json.tool plugin.json >/dev/null
+          python3 -m json.tool mcp_config.json >/dev/null
+          python3 -m json.tool hooks.json >/dev/null
+
+      - name: Auto-commit updated upstream skills to main
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add skills/
+          if git diff --staged --quiet; then
+            echo "Upstream skills are already up to date."
+          else
+            git commit -m "chore(skills): sync upstream skills [skip ci]"
+            git push origin HEAD:main
+          fi

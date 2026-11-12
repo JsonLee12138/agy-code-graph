@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "agy-code-graph": {
+      "command": "sh",
+      "args": [
+        "-c",
+        "export PATH=\"/opt/homebrew/bin:/usr/local/bin:$(printenv HOME)/.local/bin:$(printenv HOME)/.cargo/bin:/Library/Frameworks/Python.framework/Versions/3.13/bin:/Library/Frameworks/Python.framework/Versions/3.12/bin:/Library/Frameworks/Python.framework/Versions/3.11/bin:/Library/Frameworks/Python.framework/Versions/3.10/bin:$(printenv PATH)\"; if command -v code-review-graph >/dev/null 2>&1; then exec code-review-graph serve; elif command -v uvx >/dev/null 2>&1; then exec uvx code-review-graph serve; else echo 'code-review-graph is not installed. Run /agy-code-graph:crg-install in Antigravity to install it.' >&2; exit 1; fi"
+      ]
+    }
+  }
+}

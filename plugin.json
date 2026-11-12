@@ -1,0 +1,28 @@
+{
+  "name": "agy-code-graph",
+  "displayName": "AGY Code Graph",
+  "version": "0.1.0",
+  "description": "Tree-sitter AST code knowledge graph plugin for Google Antigravity powered by code-review-graph: full MCP toolset, 7 upstream workflow skills, /agy-code-graph:crg-install CLI installer, /agy-code-graph:crg-init workspace bootstrapper, and deterministic pure-CLI Stop/Git hook incremental sync.",
+  "logo": "assets/logo.svg",
+  "author": {
+    "name": "JsonLee12138",
+    "url": "https://github.com/JsonLee12138"
+  },
+  "homepage": "https://github.com/JsonLee12138/agy-code-graph",
+  "repository": "https://github.com/JsonLee12138/agy-code-graph",
+  "keywords": [
+    "antigravity",
+    "code-review-graph",
+    "ast",
+    "knowledge-graph",
+    "mcp",
+    "code-review",
+    "tree-sitter",
+    "hooks"
+  ],
+  "suggestedPrompts": [
+    "Run /agy-code-graph:crg-install to check or globally install the code-review-graph CLI.",
+    "Run /agy-code-graph:crg-init to initialize the AST graph, workspace rules, and Git hooks for this repository.",
+    "Use /agy-code-graph:review-changes to review my current uncommitted changes with blast-radius impact analysis."
+  ]
+}
